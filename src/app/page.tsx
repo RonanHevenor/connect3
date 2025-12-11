@@ -1,14 +1,77 @@
+"use client";
+import { useState, useEffect } from "react";
+
 export default function Home() {
+	const [scrollProgress, setScrollProgress] = useState(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const scrollY = window.scrollY;
+			const windowHeight = window.innerHeight;
+			// Progress based on scroll position
+			const progress = scrollY / windowHeight;
+			setScrollProgress(progress);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
+
+	const scrollOpacity = Math.max(0, 1 - scrollProgress * 1.2);
+	// Yellow: -75% to -50%, Red: -25% to -50% (faster slide)
+	const slideProgress = Math.min(1, scrollProgress * 2.5);
+	const yellowX = -75 + (25 * slideProgress);
+	const redX = -25 - (25 * slideProgress);
+	// Nav drops in after content hits top
+	const navVisible = scrollProgress >= 1;
 	return (
 		<>
-			{/* Navigation - hidden on mobile */}
-			<nav className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-zinc-800 px-8 py-4">
+			{/* Fixed Hero Background */}
+			<header className="fixed inset-0 h-screen flex flex-col justify-center items-center text-center px-8 py-24 z-0">
+				<div className="absolute inset-0 bg-black -z-10" />
+				{/* Connect 4 icon - two overlapping circles like Mastercard */}
+				<div
+					className="absolute top-1/2 left-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] rounded-full pointer-events-none mix-blend-plus-lighter"
+					style={{
+						background: 'radial-gradient(circle, rgba(234,179,8,0.9) 0%, rgba(234,179,8,0.5) 40%, rgba(234,179,8,0) 70%)',
+						opacity: scrollOpacity,
+						transform: `translate(${yellowX}%, -50%)`
+					}}
+				/>
+				<div
+					className="absolute top-1/2 left-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] rounded-full pointer-events-none mix-blend-plus-lighter"
+					style={{
+						background: 'radial-gradient(circle, rgba(239,68,68,0.9) 0%, rgba(239,68,68,0.5) 40%, rgba(239,68,68,0) 70%)',
+						opacity: scrollOpacity,
+						transform: `translate(${redX}%, -50%)`
+					}}
+				/>
+				<h1 className="text-6xl md:text-8xl font-extrabold tracking-tight text-white mb-6 relative z-10">
+					Connect 6X7
+				</h1>
+				<p className="text-white text-sm mb-8 relative z-10">
+					Ronan Hevenor, Diane Baek, Colton Perry
+				</p>
+				<p className="text-white text-xs relative z-10">
+					11 December 2025
+				</p>
+				<div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white text-xs uppercase tracking-widest z-10">
+					<span>Scroll</span>
+					<div className="w-px h-10 bg-gradient-to-b from-white to-transparent animate-pulse" />
+				</div>
+			</header>
+
+			{/* Navigation - fixed, drops in from top */}
+			<nav
+				className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-black border-b border-zinc-800 px-8 py-4 transition-transform duration-300 ease-out"
+				style={{ transform: navVisible ? 'translateY(0)' : 'translateY(-100%)' }}
+			>
 				<ul className="flex justify-center gap-12 max-w-5xl mx-auto">
 					{["intro", "approaches", "results", "discussion"].map((item) => (
 						<li key={item}>
 							<a
 								href={`#${item}`}
-								className="text-zinc-500 text-sm font-medium uppercase tracking-widest hover:text-white transition-colors"
+								className="text-zinc-400 text-sm font-medium uppercase tracking-widest hover:text-white transition-colors"
 							>
 								{item}
 							</a>
@@ -17,26 +80,14 @@ export default function Home() {
 				</ul>
 			</nav>
 
-			{/* Hero */}
-			<header className="min-h-screen flex flex-col justify-center items-center text-center px-8 py-24 relative overflow-hidden">
-				<div className="absolute inset-0 bg-gradient-radial from-zinc-900 to-black -z-10" />
-				<h1 className="text-6xl md:text-8xl font-extrabold tracking-tight bg-gradient-to-br from-white to-zinc-500 bg-clip-text text-transparent mb-6">
-					Connect 6X7
-				</h1>
-				<p className="text-zinc-500 text-sm mb-8">
-					Ronan Hevenor, Diane Baek, Colton Perry
-				</p>
-				<p className="text-zinc-600 text-xs">
-					11 December 2025
-				</p>
-				<div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 text-xs uppercase tracking-widest">
-					<span>Scroll</span>
-					<div className="w-px h-10 bg-gradient-to-b from-zinc-500 to-transparent animate-pulse" />
-				</div>
-			</header>
+			{/* Spacer for hero height */}
+			<div className="h-screen" />
 
+			{/* Scrolling content wrapper */}
+			<div className="relative z-10">
 			{/* Introduction */}
-			<section id="intro" className="max-w-4xl mx-auto px-8 py-32">
+			<section id="intro" className="bg-black">
+				<div className="max-w-4xl mx-auto px-8 py-32">
 				<SectionHeader number="01" title="Introduction" />
 				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
 					<p>
@@ -71,10 +122,12 @@ export default function Home() {
 						These questions relate directly to material we discussed in class regarding machine cognition and what it means for a system to exhibit rational behavior.
 					</p>
 				</div>
+				</div>
 			</section>
 
 			{/* Approaches */}
-			<section id="approaches" className="max-w-4xl mx-auto px-8 py-32">
+			<section id="approaches" className="bg-black">
+				<div className="max-w-4xl mx-auto px-8 py-32">
 				<SectionHeader number="02" title="Our Approaches" />
 				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
 					<p>
@@ -127,10 +180,12 @@ export default function Home() {
 						Our process of cherry-picking the best playing AI mimics real-life evolution and fitness. In a way, we "breed" the ultimate AI by choosing the best children—like how dog breeders choose dogs with the most desirable traits and breed other dogs with similar traits to eventually end up with the best possible dog.
 					</HighlightBox>
 				</div>
+				</div>
 			</section>
 
 			{/* Results */}
-			<section id="results" className="max-w-4xl mx-auto px-8 py-32">
+			<section id="results" className="bg-black">
+				<div className="max-w-4xl mx-auto px-8 py-32">
 				<SectionHeader number="03" title="Results" />
 
 				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
@@ -173,10 +228,12 @@ export default function Home() {
 						))}
 					</ul>
 				</div>
+				</div>
 			</section>
 
 			{/* Discussion */}
-			<section id="discussion" className="max-w-4xl mx-auto px-8 py-32">
+			<section id="discussion" className="bg-black">
+				<div className="max-w-4xl mx-auto px-8 py-32">
 				<SectionHeader number="04" title="Discussion" />
 
 				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
@@ -238,27 +295,29 @@ export default function Home() {
 						))}
 					</div>
 				</div>
+				</div>
 			</section>
 
-			{/* Footer */}
-			<footer className="py-16 border-t border-zinc-800 text-zinc-500 text-sm">
-				<div className="flex flex-col items-center gap-1 md:flex-row md:justify-center md:gap-0">
-					<span>Connect 6X7</span>
-					<span className="hidden md:inline">&nbsp;&middot;&nbsp;</span>
-					<span>Ronan Hevenor, Diane Baek, Colton Perry</span>
-				</div>
-				<a
-					href="https://github.com/RonanHevenor/connect3/tree/main"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="flex items-center justify-center gap-2 mt-8 text-zinc-600 hover:text-zinc-400 transition-colors"
-				>
-					<span>See the source on</span>
-					<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-						<path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-					</svg>
-				</a>
-			</footer>
+				{/* Footer */}
+				<footer className="bg-black py-16 border-t border-zinc-800 text-zinc-500 text-sm">
+					<div className="flex flex-col items-center gap-1 md:flex-row md:justify-center md:gap-0">
+						<span>Connect 6X7</span>
+						<span className="hidden md:inline">&nbsp;&middot;&nbsp;</span>
+						<span>Ronan Hevenor, Diane Baek, Colton Perry</span>
+					</div>
+					<a
+						href="https://github.com/RonanHevenor/connect3/tree/main"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex items-center justify-center gap-2 mt-8 text-zinc-600 hover:text-zinc-400 transition-colors"
+					>
+						<span>See the source on</span>
+						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+							<path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+						</svg>
+					</a>
+				</footer>
+			</div>
 		</>
 	);
 }
