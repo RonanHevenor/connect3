@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Connect-4 AI | Programming Project",
-	description: "Exploring neural networks, game theory, and artificial intelligence through the classic strategy game.",
+	title: "Connect 6X7",
+	description: "Can programs or neural networks think and reason in a human-like way? Exploring machine cognition through Connect 4.",
 };
 
 export default function RootLayout({
