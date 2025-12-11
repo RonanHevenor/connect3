@@ -4,7 +4,7 @@ export default function Home() {
 			{/* Navigation */}
 			<nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-zinc-800 px-8 py-4">
 				<ul className="flex justify-center gap-12 max-w-5xl mx-auto">
-					{["intro", "program", "results", "discussion"].map((item) => (
+					{["intro", "approaches", "results", "discussion"].map((item) => (
 						<li key={item}>
 							<a
 								href={`#${item}`}
@@ -20,14 +20,14 @@ export default function Home() {
 			{/* Hero */}
 			<header className="min-h-screen flex flex-col justify-center items-center text-center px-8 py-24 relative overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-radial from-zinc-900 to-black -z-10" />
-				<span className="text-xs tracking-[0.3em] uppercase text-zinc-500 font-medium mb-8">
-					AI Programming Project
-				</span>
 				<h1 className="text-6xl md:text-8xl font-extrabold tracking-tight bg-gradient-to-br from-white to-zinc-500 bg-clip-text text-transparent mb-6">
-					Connect-4
+					Connect 6X7
 				</h1>
-				<p className="text-xl text-zinc-500 max-w-xl font-light">
-					Can a neural network learn to play a solved game perfectly? We built one to find out.
+				<p className="text-zinc-500 text-sm mb-8">
+					Ronan Hevenor, Diane Baek, Colton Perry
+				</p>
+				<p className="text-zinc-600 text-xs">
+					John Milanese, Bram Van Heuveln &middot; 11 December 2025
 				</p>
 				<div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 text-xs uppercase tracking-widest">
 					<span>Scroll</span>
@@ -40,26 +40,26 @@ export default function Home() {
 				<SectionHeader number="01" title="Introduction" />
 				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
 					<p>
-						Connect 4, developed by Howard Wexler, is deceptively simple: two players drop chips into a 6×7 grid, racing to align four in a row. The rules take seconds to learn. Mastery is another matter entirely.
+						Connect 4, a tabletop game developed by Howard Wexler, involves two players dropping chips or tokens on top of each other into a six by seven grid. The main objective of the game is to be the first player to get four chips in a row.
 					</p>
 					<p>
-						Humans make mistakes. We overlook threats, misjudge positions, and fail to see optimal moves. Connect 4 has been mathematically solved since 1988—the first player can always force a win with perfect play. But "perfect play" requires evaluating positions that number in the trillions.
+						Though the rules are simple, devising strategies to guarantee a win isn't as straightforward as one might expect. Humans aren't perfect, which means that playing Connect 4 without giving your opponent an advantage would be relatively difficult.
 					</p>
 
 					<HighlightBox>
-						This raises a fundamental question: can we create an AI that plays Connect 4 perfectly? And if so, what does that tell us about machine intelligence versus human reasoning?
+						Is it possible to create an algorithm or neural network that can perfectly play Connect 4 every round? Would this program be superior to human players?
 					</HighlightBox>
 
-					<ImagePlaceholder label="Project Visual" />
+					<p>
+						The common reason for choosing this project is because the advancement and creation of neural networks and algorithms is interesting to us. Therefore, we wanted to develop our own program that could answer the aforementioned questions.
+					</p>
 
-					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Research Questions</h3>
+					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Questions We Explored</h3>
 					<ul className="space-y-4">
 						{[
-							"What is the optimal approach to creating a perfect (or near-perfect) Connect 4 AI?",
-							"Can neural networks \"think\" and \"reason\" in ways comparable to humans?",
-							"Setting aside raw speed, is the AI's decision-making process fundamentally better or worse than human intuition?",
-							"What ethical questions emerge from developing algorithms that surpass human capability?",
-							"Can any algorithm achieve true perfection, or will biases always exist—such as hardcoded opening books?",
+							"What is the best or ideal approach to creating a perfect (or close to perfect) playing AI?",
+							"Can programs or neural networks \"think\" and \"reason\" in a human-like way—thinking, as in taking in information and drawing a conclusion, and reason as in being logical?",
+							"If not, is its method of thinking better or worse than a human's, disregarding the obvious difference of speed?",
 						].map((q, i) => (
 							<li key={i} className="pl-8 relative text-zinc-300">
 								<span className="absolute left-0 font-bold text-zinc-600">?</span>
@@ -67,21 +67,23 @@ export default function Home() {
 							</li>
 						))}
 					</ul>
+					<p className="text-zinc-400 mt-6">
+						These questions relate directly to material we discussed in class regarding machine cognition and what it means for a system to exhibit rational behavior.
+					</p>
 				</div>
 			</section>
 
-			{/* Program */}
-			<section id="program" className="max-w-4xl mx-auto px-8 py-32">
-				<SectionHeader number="02" title="Program" />
+			{/* Approaches */}
+			<section id="approaches" className="max-w-4xl mx-auto px-8 py-32">
+				<SectionHeader number="02" title="Our Approaches" />
 				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
 					<p>
-						Developing a Connect-4 solver demands careful consideration of methodology. We explored multiple approaches before arriving at our final implementation.
+						Because there are so many approaches to developing a Connect-4 solving program, we considered the following questions:
 					</p>
 
-					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Initial Considerations</h3>
 					<ul className="space-y-4">
 						{[
-							"Is utilizing search tables/tree algorithms ideal for this situation?",
+							"Is utilizing search tables or tree algorithms ideal for this situation?",
 							"Would it make sense to develop a neural network?",
 							"What is the best way to train a neural network?",
 						].map((q, i) => (
@@ -93,70 +95,37 @@ export default function Home() {
 					</ul>
 
 					<p className="mt-8">
-						Since each chip position in the Connect-4 grid could be represented in a 2D array, we initially decided to develop a neural network. Each column is represented by an integer (indexed from zero), and the neural network would "pick" where to drop its chip. Because the output is a single integer, a properly trained neural network could make decisions faster than an algorithm calculating every possible position.
+						Since each chip position in the Connect-4 grid could be represented in a 2D array, we initially decided to develop a neural network. Each column is represented by an integer (indexed from zero), and the neural network would "pick" where it would drop its chip.
+					</p>
+					<p>
+						Because the output is a single integer, a neural network that is properly trained would make decisions faster than an algorithm that would calculate every possible position. Due to this, it seemed more probable to take the neural network approach, though we didn't want to entirely disregard utilizing trees or search tables that could aid our neural network.
 					</p>
 
 					{/* Approach Cards */}
 					<div className="grid gap-6 mt-12">
 						<ApproachCard
 							number="01"
-							title="Genetic Algorithm + Perfect Games"
-							description="We paired randomly generated algorithms with a perfect AI, simulating slight mutations after every game. The goal: generate an algorithm that could approximate the solved game. Unfortunately, since only a perfect AI can beat the perfect AI, the neural network never improved—it lost every game. The only way it could have succeeded was random chance, with near-zero probability."
+							title="Neural Network Trained Off Perfect Games"
+							description="We used a genetic algorithm to attempt to determine the optimal parameters. We paired the randomly generated algorithm with a perfect AI, and simulated slight shifts after every game. Our hope was to generate an algorithm which could approximately reproduce the \"solved\" game."
+							outcome="Unfortunately, there was a slight oversight in how the AI was evaluated. Since only a perfect AI can beat the perfect AI, the neural network never improved, because it lost every game. The only way that the AI would have become perfect is if it were randomly generated, the odds of which are near zero."
 						/>
 						<ApproachCard
 							number="02"
-							title="Brute Force Tree Search"
-							description="We dynamically generated a tree of all possible moves from the current board state, analyzing what percentage of each branch leads to victory versus defeat. With trillions of possible permutations, we implemented pruning to cut off branches destined for failure early—prioritizing more promising paths."
+							title="Brute Force Algorithm"
+							description="For this algorithm, we dynamically generate a tree of all possible moves after the current board state, and analyze the percentage of each tree that leads to a win versus the percentage that leads to a loss."
+							outcome="Since there are way too many possible permutations of the Connect 4 board (in the trillions), we have to pick and choose which tree branches will end in failure early and \"prune\" those branches—that is, stop simulating down that path and prioritize others."
 						/>
 						<ApproachCard
 							number="03"
-							title="Convolutional Neural Network + Reinforcement Learning"
-							description="Using a public dataset from Hugging Face compiled with Pascal Pons' Connect 4 solver (~160 million game board states), we trained the AI to predict win probabilities for both players at each position. This sample-based approach extended predictions across the entire game tree."
+							title="Convolutional Neural Network Using Reinforcement Learning"
+							description="For this method, we used a public dataset from Hugging Face, compiled using Pascal Pons's Connect 4 solver. This dataset has roughly 160 million game board states from all levels of the game, as well as the win probability of both player X and player O (and draws) at each of those states."
+							outcome="This approach uses a sample-based method, where the idea was to have the AI try to predict the results of the samples, and then extend it to the whole game."
 						/>
 					</div>
 
-					<ImagePlaceholder label="Architecture Diagram" />
-
-					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Evolution Strategy</h3>
-					<p>
-						We chose to make the AI play against mutated versions of itself. This makes it far easier to evaluate win-to-loss ratios—playing against the perfect AI wouldn't allow learning, since it would always lose.
-					</p>
-
 					<HighlightBox>
-						Our process of cherry-picking the best-performing AI mimics real-life evolution and fitness. We "breed" the ultimate AI by selecting the best children—like how dog breeders choose dogs with the most desirable traits and breed similar dogs to eventually produce the best possible outcome.
+						Our process of cherry-picking the best playing AI mimics real-life evolution and fitness. In a way, we "breed" the ultimate AI by choosing the best children—like how dog breeders choose dogs with the most desirable traits and breed other dogs with similar traits to eventually end up with the best possible dog.
 					</HighlightBox>
-
-					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Training Output</h3>
-					<Terminal>
-						<span className="text-green-400">Using device: cuda</span>{"\n"}
-						<span className="text-white">GPU: NVIDIA GeForce RTX 4070</span>{"\n"}
-						{"============================================================\n"}
-						{"(against the perfect algo)\n"}
-						{"============================================================\n\n"}
-						{"Initializing population of 40 neural networks...\n"}
-						<span className="text-green-400">Population created! Starting training for 50 generations...</span>{"\n\n"}
-						{"  Evaluated 10/40 networks\n"}
-						{"  Evaluated 20/40 networks\n"}
-						{"  Evaluated 30/40 networks\n"}
-						{"  Evaluated 40/40 networks\n"}
-						<span className="text-white">Gen 0 Best fitness: -12.000  (range: -12.000 → -12.000)</span>{"\n"}
-						{"  ...\n"}
-						<span className="text-white">Gen 15 Best fitness: -12.000  (range: -12.000 → -12.000)</span>
-					</Terminal>
-
-					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Selection Process</h3>
-					<p>
-						We refined our approach with an intermediate selection phase after the main tournament:
-					</p>
-					<ol className="space-y-4 mt-6 list-decimal list-inside text-zinc-300">
-						<li>Take the top 10 performers and play them against a random AI (two games each—starting first and second)</li>
-						<li>Only those with 100% success rate against the random AI move on</li>
-						<li>Survivors play the perfect AI, ranked by: least moves to win → most moves to win → most moves to lose → least moves to lose</li>
-						<li>Top three become parents for the next generation</li>
-					</ol>
-					<p className="mt-6 text-zinc-400">
-						If no models survive against the random AI with 100% success, we take the top three from the tournament instead.
-					</p>
 				</div>
 			</section>
 
@@ -164,29 +133,45 @@ export default function Home() {
 			<section id="results" className="max-w-4xl mx-auto px-8 py-32">
 				<SectionHeader number="03" title="Results" />
 
-				{/* Stats */}
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
-					<StatCard number="160M+" label="Training States" />
-					<StatCard number="40" label="Network Population" />
-					<StatCard number="50" label="Generations" />
-				</div>
-
-				<ImagePlaceholder label="Performance Graph" />
-
-				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed mt-12">
-					<h3 className="text-2xl font-semibold text-white mb-6">Observations</h3>
+				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
 					<p>
-						During testing, our AI won against the perfect AI in 39 moves. However, in a theoretically perfect game where our AI moves first, the minimum number of moves to win should be 41—since the opponent plays perfectly.
+						The final iteration of our program is able to play Connect 4. Albeit not perfect, on average, it is able to play better than humans.
+					</p>
+					<p>
+						Its flaws are evident when playing against perfectly playing AIs, because all of them lost against a perfect player.
 					</p>
 
 					<HighlightBox>
-						This discrepancy indicates potential issues in our evaluation system or reveals interesting edge cases in the game tree that warrant further investigation.
+						Our final minimax algorithm is a significantly better player than our neural network program, and it wins every time against the neural network. This is because the neural network is at its core a statistical algorithm, whereas the minimax finds the near mathematically optimal solution.
 					</HighlightBox>
 
-					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Current Capabilities</h3>
 					<p>
-						The program successfully plays Connect-4 and demonstrates strategic decision-making. However, it has not yet achieved truly "perfect" play, as evidenced by the move count anomalies observed during testing. The AI is still not playing perfectly—further refinement is needed.
+						Our self-learning approach never fruited a working algorithm.
 					</p>
+
+					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">What We Learned</h3>
+					<p>
+						From this project, we learned that the best method for making a program (in a short amount of time) to successfully play Connect 4 is to use a tree-searching algorithm like minimax.
+					</p>
+					<p>
+						We also learned that our AI can "think," since it can translate human input into symbols and process information about a game state. It is, up to a certain extent, "logical" or "reasonable" since, using given information, it could develop a strategy to win—it has a given goal and can fulfill it.
+					</p>
+
+					<h3 className="text-2xl font-semibold text-white mt-12 mb-6">Potential Improvements</h3>
+					<p>
+						Our program satisfies the criteria of being able to play Connect 4, though it didn't prove to be satisfactory in winning the final competition.
+					</p>
+					<ul className="space-y-4 mt-6">
+						{[
+							"Increase our max search depth in the tree by creating a more intelligent pruning algorithm",
+							"Make an AlphaGo-style program that adapted on its own, which would have been a more complete implementation of self-improving artificial intelligence",
+						].map((item, i) => (
+							<li key={i} className="pl-8 relative text-zinc-300">
+								<span className="absolute left-0 font-bold text-zinc-600">&rarr;</span>
+								{item}
+							</li>
+						))}
+					</ul>
 				</div>
 			</section>
 
@@ -194,33 +179,46 @@ export default function Home() {
 			<section id="discussion" className="max-w-4xl mx-auto px-8 py-32">
 				<SectionHeader number="04" title="Discussion" />
 
-				<div className="grid md:grid-cols-2 gap-6 my-12">
-					<DiscussionCard
-						title="Autonomy Through Learning"
-						description="Unlike tree-algorithm approaches, our learning method allows the AI to learn from itself rather than following pre-written mathematical instructions. This gives the AI autonomy and independence—it acts through learned behavior, not rigid programming."
-					/>
-					<DiscussionCard
-						title="Evolutionary Parallels"
-						description="Our selection process mirrors natural evolution: cherry-picking the fittest individuals to produce the next generation. The alterations between generations are determined through mutations, mimicking biological inheritance."
-					/>
-					<DiscussionCard
-						title="Move-Level Evaluation"
-						description="Instead of scoring entire games, we shifted to evaluating individual moves. This provides more granular feedback for the learning process and allows the AI to understand which specific decisions lead to better outcomes."
-					/>
-					<DiscussionCard
-						title="Future Directions"
-						description="Training on probabilistic movesets from the dataset and implementing more sophisticated evaluation functions could push the AI closer to perfect play. The CNN approach using reinforcement learning shows the most promise."
-					/>
-				</div>
+				<div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
+					<p>
+						The philosophical implications of this project are significant.
+					</p>
 
-				<ImagePlaceholder label="Comparison Chart" />
+					<HighlightBox>
+						The thing we made isn't able to make itself. We're not making something that has the skills we used while making it. Ethically, this seems better if used only as a tool for menial tasks.
+					</HighlightBox>
+
+					<p>
+						The learning approach, unlike the tree-algorithm approach, allows the AI to learn from itself, rather than following a set of mathematical pre-written instructions. This gives our AI autonomy and independence, rather than just acting like a robot.
+					</p>
+
+					<div className="border border-zinc-800 p-8 my-12">
+						<h4 className="font-semibold mb-4 flex items-center gap-3">
+							<span className="w-2 h-2 bg-white" />
+							Evolutionary Parallels
+						</h4>
+						<p className="text-zinc-400 leading-relaxed">
+							Another difference is that our process of cherry-picking the best playing AI mimics real-life evolution and fitness. In a way, we "breed" the ultimate AI by choosing the best children—like how dog breeders choose dogs with the most desirable traits and breed other dogs with similar traits to eventually end up with the best possible dog.
+						</p>
+					</div>
+
+					<p>
+						In its current state, we've proved that humans can create something that is capable of beating us; so, we are sort of better at making Connect 4 AI than we are at Connect 4.
+					</p>
+
+					<div className="bg-zinc-950 border border-zinc-800 p-8 mt-12">
+						<p className="text-zinc-300 text-center">
+							In conclusion, while our program did not satisfy our goals because we didn't win the competition, the project provided valuable insights into the challenges of creating game-playing AI.
+						</p>
+					</div>
+				</div>
 
 				<div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent my-16" />
 
 				{/* References */}
 				<div className="bg-zinc-950 border border-zinc-800 p-8 mt-12">
 					<h4 className="text-sm uppercase tracking-widest text-zinc-500 mb-6">
-						References & Resources
+						References
 					</h4>
 					<div className="space-y-0 divide-y divide-zinc-800">
 						{[
@@ -244,7 +242,7 @@ export default function Home() {
 
 			{/* Footer */}
 			<footer className="text-center py-16 border-t border-zinc-800 text-zinc-500 text-sm">
-				Connect-4 AI Programming Project
+				Connect 6X7 &middot; Ronan Hevenor, Diane Baek, Colton Perry
 			</footer>
 		</>
 	);
@@ -269,15 +267,8 @@ function HighlightBox({ children }: { children: React.ReactNode }) {
 	);
 }
 
-function ImagePlaceholder({ label }: { label: string }) {
-	return (
-		<div className="bg-zinc-900 border border-dashed border-zinc-700 aspect-video flex items-center justify-center my-12 text-zinc-500 text-sm uppercase tracking-widest">
-			[ {label} ]
-		</div>
-	);
-}
 
-function ApproachCard({ number, title, description }: { number: string; title: string; description: string }) {
+function ApproachCard({ number, title, description, outcome }: { number: string; title: string; description: string; outcome?: string }) {
 	return (
 		<div className="bg-zinc-950 border border-zinc-800 p-8 hover:border-zinc-600 transition-all hover:-translate-y-1">
 			<span className="font-mono text-xs text-zinc-500 uppercase tracking-widest block mb-4">
@@ -285,42 +276,8 @@ function ApproachCard({ number, title, description }: { number: string; title: s
 			</span>
 			<h4 className="text-xl font-semibold mb-4">{title}</h4>
 			<p className="text-zinc-400 text-base leading-relaxed">{description}</p>
+			{outcome && <p className="text-zinc-500 text-sm leading-relaxed mt-4 pt-4 border-t border-zinc-800">{outcome}</p>}
 		</div>
 	);
 }
 
-function StatCard({ number, label }: { number: string; label: string }) {
-	return (
-		<div className="bg-zinc-950 border border-zinc-800 p-8 text-center">
-			<span className="text-5xl font-extrabold block mb-2">{number}</span>
-			<span className="text-xs uppercase tracking-widest text-zinc-500">{label}</span>
-		</div>
-	);
-}
-
-function DiscussionCard({ title, description }: { title: string; description: string }) {
-	return (
-		<div className="border border-zinc-800 p-8">
-			<h4 className="font-semibold mb-4 flex items-center gap-3">
-				<span className="w-2 h-2 bg-white" />
-				{title}
-			</h4>
-			<p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
-		</div>
-	);
-}
-
-function Terminal({ children }: { children: React.ReactNode }) {
-	return (
-		<div className="bg-zinc-950 border border-zinc-800 rounded-lg overflow-hidden my-8">
-			<div className="bg-zinc-900 px-4 py-3 flex gap-2">
-				<div className="w-3 h-3 rounded-full bg-zinc-700" />
-				<div className="w-3 h-3 rounded-full bg-zinc-700" />
-				<div className="w-3 h-3 rounded-full bg-zinc-700" />
-			</div>
-			<pre className="p-6 font-mono text-xs text-zinc-400 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-96 overflow-y-auto">
-				{children}
-			</pre>
-		</div>
-	);
-}
