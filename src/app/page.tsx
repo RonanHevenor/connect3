@@ -1,8 +1,8 @@
 export default function Home() {
 	return (
 		<>
-			{/* Navigation */}
-			<nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-zinc-800 px-8 py-4">
+			{/* Navigation - hidden on mobile */}
+			<nav className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-zinc-800 px-8 py-4">
 				<ul className="flex justify-center gap-12 max-w-5xl mx-auto">
 					{["intro", "approaches", "results", "discussion"].map((item) => (
 						<li key={item}>
@@ -27,7 +27,7 @@ export default function Home() {
 					Ronan Hevenor, Diane Baek, Colton Perry
 				</p>
 				<p className="text-zinc-600 text-xs">
-					John Milanese, Bram Van Heuveln &middot; 11 December 2025
+					11 December 2025
 				</p>
 				<div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 text-xs uppercase tracking-widest">
 					<span>Scroll</span>
@@ -106,14 +106,14 @@ export default function Home() {
 						<ApproachCard
 							number="01"
 							title="Neural Network Trained Off Perfect Games"
-							description="We used a genetic algorithm to attempt to determine the optimal parameters. We paired the randomly generated algorithm with a perfect AI, and simulated slight shifts after every game. Our hope was to generate an algorithm which could approximately reproduce the \"solved\" game."
+							description={`We used a genetic algorithm to attempt to determine the optimal parameters. We paired the randomly generated algorithm with a perfect AI, and simulated slight shifts after every game. Our hope was to generate an algorithm which could approximately reproduce the "solved" game.`}
 							outcome="Unfortunately, there was a slight oversight in how the AI was evaluated. Since only a perfect AI can beat the perfect AI, the neural network never improved, because it lost every game. The only way that the AI would have become perfect is if it were randomly generated, the odds of which are near zero."
 						/>
 						<ApproachCard
 							number="02"
 							title="Brute Force Algorithm"
 							description="For this algorithm, we dynamically generate a tree of all possible moves after the current board state, and analyze the percentage of each tree that leads to a win versus the percentage that leads to a loss."
-							outcome="Since there are way too many possible permutations of the Connect 4 board (in the trillions), we have to pick and choose which tree branches will end in failure early and \"prune\" those branches—that is, stop simulating down that path and prioritize others."
+							outcome={`Since there are way too many possible permutations of the Connect 4 board (in the trillions), we have to pick and choose which tree branches will end in failure early and "prune" those branches—that is, stop simulating down that path and prioritize others.`}
 						/>
 						<ApproachCard
 							number="03"
