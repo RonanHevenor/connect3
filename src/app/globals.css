@@ -42,3 +42,32 @@ html {
 ::-webkit-scrollbar-thumb:hover {
 	background: #404040;
 }
+
+/* Gradient text styles for section headers - progressively redder */
+.gradient-text-1 {
+	background: linear-gradient(90deg, #FAEF5D 0%, #FFCF56 35%, #FF9A3C 70%, #FF6B35 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.gradient-text-2 {
+	background: linear-gradient(90deg, #FFD23F 0%, #FF9F1C 30%, #FF6D00 65%, #E85D04 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.gradient-text-3 {
+	background: linear-gradient(90deg, #FFAA5A 0%, #FF6B3D 30%, #F4442E 65%, #D62828 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.gradient-text-4 {
+	background: linear-gradient(90deg, #FF7B54 0%, #E84545 30%, #C62828 65%, #8B0000 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}

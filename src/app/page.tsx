@@ -265,10 +265,11 @@ export default function Home() {
 
 // Components
 function SectionHeader({ number, title }: { number: string; title: string }) {
+	const gradientClass = `gradient-text-${number.replace('0', '')}`;
 	return (
 		<div className="mb-16">
 			<span className="font-mono text-sm text-zinc-500 block mb-4">{number}</span>
-			<h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">{title}</h2>
+			<h2 className={`text-4xl md:text-5xl font-bold tracking-tight mb-4 ${gradientClass}`}>{title}</h2>
 			<div className="w-16 h-0.5 bg-white" />
 		</div>
 	);
